@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+ref="$1"
+
+err=0
+git merge "$1" --no-commit --no-ff >/dev/null 2>&1 || {
+  err=1
+}
+
+git reset --merge
+
+if [ ${err} -eq 0 ]; then
+  echo "${ref} can be merged"
+else
+  echo "${ref} cannot be merged"
+fi
+
+exit $err
